@@ -1,0 +1,46 @@
+﻿<Window x:Class="SARSDemoApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SARSDemoApp"
+        xmlns:view="clr-namespace:SARSDemoApp.View"
+        xmlns:viewModel="clr-namespace:SARSDemoApp.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:UserProfileViewModel}">
+            <view:UserProfile/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:EditUserViewModel}">
+            <view:EditUserPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+            <view:LoginPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:RegisterViewModel}">
+            <view:RegisterPage/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Margin="0 0 0 0" Background="LightBlue">
+            <MenuItem Header="Profile" Command="{Binding SelectViewModelCommand}"
+                       CommandParameter="{Binding UserProfileViewModel}"/>
+            <MenuItem Header="Edit Profile" Command="{Binding SelectViewModelCommand}"
+                       CommandParameter="{Binding EditUserViewModel}"/>
+            <MenuItem Header="Login"  Command="{Binding SelectViewModelCommand}"
+                       CommandParameter="{Binding LoginViewModel}"/>
+            <MenuItem Header="Register"  Command="{Binding SelectViewModelCommand}"
+                       CommandParameter="{Binding RegisterViewModel}"/>
+        </Menu>
+
+        <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}"/>
+
+    </Grid>
+</Window>

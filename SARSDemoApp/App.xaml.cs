@@ -33,6 +33,7 @@ namespace SARSDemoApp
             services.AddTransient<EditUserViewModel>();
             services.AddTransient<RegisterViewModel>();
             services.AddTransient<LoginViewModel>();
+            services.AddTransient<LogOutViewModel>();
         }
         protected override void OnStartup(StartupEventArgs e)
         {

@@ -22,7 +22,12 @@
         <DataTemplate DataType="{x:Type viewModel:RegisterViewModel}">
             <view:RegisterPage/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:LogOutViewModel}">
+            <view:LogOut/>
+        </DataTemplate>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Window.Resources>
+   
     
     <Grid>
         <Grid.RowDefinitions>
@@ -31,16 +36,20 @@
         </Grid.RowDefinitions>
         <Menu Margin="0 0 0 0" Background="LightBlue">
             <MenuItem Header="Profile" Command="{Binding SelectViewModelCommand}"
-                       CommandParameter="{Binding UserProfileViewModel}"/>
+                       CommandParameter="{Binding UserProfileViewModel}" x:Name="profileMenuItem" Visibility="{Binding IsUserLoggedIn}"/>
             <MenuItem Header="Edit Profile" Command="{Binding SelectViewModelCommand}"
-                       CommandParameter="{Binding EditUserViewModel}"/>
+                       CommandParameter="{Binding EditUserViewModel}" x:Name="editUserMenuItem" Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BoolToVisibilityConverter}}" />
             <MenuItem Header="Login"  Command="{Binding SelectViewModelCommand}"
-                       CommandParameter="{Binding LoginViewModel}"/>
+                       CommandParameter="{Binding LoginViewModel}" x:Name="loginMenuItem"/>
             <MenuItem Header="Register"  Command="{Binding SelectViewModelCommand}"
-                       CommandParameter="{Binding RegisterViewModel}"/>
+                       CommandParameter="{Binding RegisterViewModel}" x:Name="registerMenuItem"/>
+            <MenuItem Header="Logout"  Command="{Binding SelectViewModelCommand}"
+                       CommandParameter="{Binding LogOutViewModel}" x:Name="logoutMenuItem" Visibility="{Binding IsUserLoggedIn , Converter={StaticResource BoolToVisibilityConverter}}"  />
         </Menu>
 
-        <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}"/>
+        <!--<ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}"/>-->       
+        <Frame Grid.Row="1" Content="{Binding SelectedViewModel}"/> 
+
 
     </Grid>
 </Window>

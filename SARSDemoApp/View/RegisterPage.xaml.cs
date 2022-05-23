@@ -21,7 +21,7 @@ namespace SARSDemoApp.View
     /// <summary>
     /// Interaction logic for RegisterPage.xaml
     /// </summary>
-    public partial class RegisterPage : UserControl
+    public partial class RegisterPage : Page
     {
         public RegisterPage()
         {
@@ -83,6 +83,17 @@ namespace SARSDemoApp.View
                 register_response.EnsureSuccessStatusCode();
 
                 MessageBox.Show("You were Successfully Register !");
+                fullname.Text="";
+                email.Text="";
+                username.Text="";
+                password.Password="";
+                position.Text="";
+                sa_id.Text="";
+
+                LoginPage loginPage = new LoginPage();
+
+
+                NavigationService.Navigate(loginPage);
             }
 
 

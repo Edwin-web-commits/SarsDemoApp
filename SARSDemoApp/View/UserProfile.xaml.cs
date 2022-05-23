@@ -1,4 +1,5 @@
-﻿using SARSDemoApp.Model;
+﻿using Newtonsoft.Json.Linq;
+using SARSDemoApp.Model;
 using SARSDemoApp.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -16,30 +17,44 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SARSDemoApp.Global;
 
 namespace SARSDemoApp.View
 {
     /// <summary>
     /// Interaction logic for UserProfile.xaml
     /// </summary>
-    public partial class UserProfile : UserControl
+    public partial class UserProfile : Page
     {
-       
+        int _userId;
+        
 
-        public UserProfile()
+        public UserProfile(int userId)
         {
 
             InitializeComponent();
-            
+            _userId = userId;
 
             //Fullname.Text = "Edwin Motlokwa";
 
-            userdata();
+            userdata(_userId);
             
-           
         }
+        public UserProfile()
+        {
+            var id = global.UserID;
+            InitializeComponent();
 
-        public  void userdata()
+
+            //Fullname.Text = "Edwin Motlokwa";
+
+            userdata(id);
+            
+        }
+       
+
+
+        public  void userdata( int userId)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://127.0.0.1:5000/users");
@@ -47,23 +62,30 @@ namespace SARSDemoApp.View
             client.DefaultRequestHeaders.Accept.Add(
                new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("http://127.0.0.1:5000/users").Result;
+            //var userId = 1;
+            var url = "http://127.0.0.1:5000/user/" + userId;
+
+            HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                var users = response.Content.ReadAsAsync<IEnumerable<User>>().Result;
-                
-                if(users != null)
+                var user = response.Content.ReadAsStringAsync().Result;
+                JArray jsonArray = JArray.Parse(user);
+
+                if (user != null)
                 {
-                    Fullname.Text = users.FirstOrDefault().full_name.ToString();
-                    Email.Text = users.FirstOrDefault().email.ToString();
-                    Company.Text = users.FirstOrDefault().company.ToString();
-                    Position.Text = users.FirstOrDefault().position.ToString();
-                    Id.Text=users.FirstOrDefault().south_african_id.ToString();
+                  
+                    Fullname.Text = jsonArray[1].ToString();
+                    Email.Text = jsonArray[2].ToString();
+                    Company.Text = jsonArray[3].ToString();
+                    Position.Text = jsonArray[4].ToString();
+                    Id.Text= jsonArray[5].ToString();
 
                     Status.Text = "Compliant";
                     Date.Text = DateTime.Now.ToString();
+
+                    bool log = IsLoggedIn.isloggedin;
                 }
-               
+                
 
             }
             else
@@ -71,8 +93,13 @@ namespace SARSDemoApp.View
                 MessageBox.Show("Error Code" + response.StatusCode + " : Message - " + response.ReasonPhrase);
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Succesfully Submitted");
+        }
         //
-       
+
     }
     
 }

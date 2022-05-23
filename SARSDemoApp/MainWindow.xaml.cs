@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SARSDemoApp.Model;
+using SARSDemoApp.View;
+
 
 namespace SARSDemoApp
 {
@@ -29,11 +32,14 @@ namespace SARSDemoApp
             _viewModel = ViewModel;
             DataContext = _viewModel;
             Loaded += MainWindow_Loaded;
+
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             await _viewModel.LoadAsync();
         }
+
+        
     }
 }

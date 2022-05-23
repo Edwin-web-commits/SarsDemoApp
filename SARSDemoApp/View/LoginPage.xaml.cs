@@ -16,14 +16,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SARSDemoApp.Global;
+
+
 
 namespace SARSDemoApp.View
 {
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : UserControl
-    {
+    public partial class LoginPage : Page
+    { 
         
         public LoginPage()
         {
@@ -63,9 +66,22 @@ namespace SARSDemoApp.View
                     if (jsonArray[2].ToString() == login.password)
                           {
                                 isLoggedIn = true;
-                                //MessageBox.Show("succesfully loggedin!");
+                                
+                                
+                                var loggedInUserId = (int)jsonArray[0];
+                                
+                                global.UserID = loggedInUserId;
+
+                                IsLoggedIn.isloggedin = true;
+                                
                                 //pass the user id to th profile page and display user details
-                       }
+                                UserProfile userProfile = new UserProfile(loggedInUserId);
+
+                        
+
+                                
+                                NavigationService.Navigate(userProfile);
+                    }
                       else
                       {
                         
@@ -81,6 +97,8 @@ namespace SARSDemoApp.View
             else
             {
                 MessageBox.Show("User with specified details does not exit. Go to Register!");
+                username.Text = "";
+                password.Password = "";
             }
 
         }
@@ -88,6 +106,8 @@ namespace SARSDemoApp.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             login();
+            
+            
         }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\bbdnet2649\Desktop\WPF\SARSDemoApp\SARSDemoApp\App.xaml
-5-327606142
+62017055996
 
-19-268456184
+23-2074893484
 209-1893713281
-MainWindow.xaml;View\EditUserPage.xaml;View\LoginPage.xaml;View\RegisterPage.xaml;View\UserProfile.xaml;
+MainWindow.xaml;View\EditUserPage.xaml;View\LoginPage.xaml;View\LogOut.xaml;View\RegisterPage.xaml;View\UserProfile.xaml;
 
 False
 

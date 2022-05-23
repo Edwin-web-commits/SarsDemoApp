@@ -19,35 +19,44 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SARSDemoApp.Global;
 
 namespace SARSDemoApp.View
 {
     /// <summary>
     /// Interaction logic for EditUserPage.xaml
     /// </summary>
-    public partial class EditUserPage : UserControl
+    public partial class EditUserPage : Page
     {
+        //int _userId;
         
 
-        public  EditUserPage()
-        {
-            InitializeComponent();
-          
+        //public  EditUserPage(int userId)
+        //{
+        //    InitializeComponent();
+        //    _userId = userId;
 
-            loadUser();
+        //    loadUser(_userId);
+        //}
+        public EditUserPage()
+        {
+            var id = global.UserID;
+            InitializeComponent();
+
+            loadUser(id);
         }
         
-        public void loadUser()
+        public void loadUser(int user_id)
         {
-            
 
+            global.UserID = user_id;
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://127.0.0.1:5000/users");
 
             client.DefaultRequestHeaders.Accept.Add(
                new MediaTypeWithQualityHeaderValue("application/json"));
 
-            int user_id = 1;
+           // int user_id = 1;
             var url = "http://127.0.0.1:5000/user/" + user_id;
            
 
@@ -85,7 +94,7 @@ namespace SARSDemoApp.View
             
         }
 
-        private async void Update_User(object sender, RoutedEventArgs e)
+        private  void Update_User(object sender, RoutedEventArgs e)
         {
 
             HttpClient client = new HttpClient();

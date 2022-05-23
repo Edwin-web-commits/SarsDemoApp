@@ -13,6 +13,9 @@
     <Compile Update="View\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\LogOut.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\RegisterPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\LoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\LogOut.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RegisterPage.xaml">

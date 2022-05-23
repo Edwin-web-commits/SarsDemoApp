@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Global\" />
+  </ItemGroup>
+
 </Project>

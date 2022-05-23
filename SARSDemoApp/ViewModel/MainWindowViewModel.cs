@@ -1,9 +1,11 @@
 ﻿using SARSDemoApp.Command;
+using SARSDemoApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SARSDemoApp.ViewModel
 {
@@ -13,18 +15,44 @@ namespace SARSDemoApp.ViewModel
         public EditUserViewModel EditUserViewModel { get; }
         public RegisterViewModel RegisterViewModel { get; }
         public LoginViewModel LoginViewModel { get; }
+        public LogOutViewModel LogOutViewModel { get; }
         private ViewModelBase? _selectedViewModel;
 
-        public MainWindowViewModel(UserProfileViewModel userProfileViewModel, EditUserViewModel editUserViewModel, RegisterViewModel registerViewModel, LoginViewModel loginViewModel)
+        private Visibility _isUserLoggedIn;
+
+        
+
+
+        public MainWindowViewModel(UserProfileViewModel userProfileViewModel, EditUserViewModel editUserViewModel, RegisterViewModel registerViewModel, LoginViewModel loginViewModel,LogOutViewModel logOutViewModel)
         {
             UserProfileViewModel = userProfileViewModel;
             EditUserViewModel = editUserViewModel;
             RegisterViewModel = registerViewModel;
             LoginViewModel = loginViewModel;
-            SelectedViewModel = UserProfileViewModel;
+            LogOutViewModel = logOutViewModel;
+
+            IsUserLoggedIn = Visibility.Hidden;
+
+           // SelectedViewModel = UserProfileViewModel;
+            SelectedViewModel = loginViewModel;
             SelectViewModelCommand = new DelegateCommand(SelectViewModel);
             
         }
+
+        public Visibility IsUserLoggedIn
+        {
+            get {return _isUserLoggedIn; }
+            set 
+            {
+                _isUserLoggedIn = value;
+                RaisePropertyChanged();
+                
+            }
+
+        }
+
+
+
         private async void SelectViewModel(object? parameter)
         {
             SelectedViewModel = parameter as ViewModelBase;
